@@ -1,3 +1,5 @@
+import datetime
+
 from db.MariaDbConnector import connect, table_name
 import json
 import decimal
@@ -5,6 +7,7 @@ import decimal
 class Encoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, decimal.Decimal): return float(obj)
+        if isinstance(obj, datetime.date): return obj.isoformat()
 
 
 def search_by_field_name_pattern(field_name : str, pattern : str):
